@@ -1,3 +1,6 @@
+// This is one of the two example TypeScript files included with the NodeBB repository
+// It is meant to serve as an example to assist you with your HW1 translation
+
 import nconf from 'nconf';
 
 import { Request, Response, NextFunction } from 'express';
@@ -88,9 +91,9 @@ export async function post(req: Request<object, object, ComposerData> & { uid: n
     req.body.noscript = 'true';
 
     if (!data.content) {
-        await helpers.noScriptErrors(req, res, '[[error:invalid-data]]', 400);
-        return;
+        return await helpers.noScriptErrors(req, res, '[[error:invalid-data]]', 400) as Promise<void>;
     }
+
     async function queueOrPost(postFn: PostFnType, data: ComposerData): Promise<QueueResult> {
         // The next line calls a function in a module that has not been updated to TS yet
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
