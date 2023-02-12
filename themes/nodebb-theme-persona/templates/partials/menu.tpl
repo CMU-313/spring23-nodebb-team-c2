@@ -288,13 +288,6 @@
                             <span class="visible-xs-inline">Admin</span>
                         </a>
                     </li>
-
-                    <li class="">
-                        <a title="" class="navigation-link " href="/career" data-original-title="Career">
-                            <i class="fa fa-fw fa-briefcase" data-content=""></i>
-                            <span class="visible-xs-inline">Career</span>
-                        </a>
-                    </li>
                 </ul>
 
                 <!-- ELSE -->
