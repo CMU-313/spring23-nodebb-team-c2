@@ -147,17 +147,15 @@ User.isModeratorOfAnyCategory = async function (uid) {
 
 User.isAdministrator = async function (uid) {
     if (await privileges.users.isAdministrator(uid)) {
-        return true; 
+        return true;
     }
-
     const accounttype = await User.getUserField(uid, 'accounttype');
-    if (accounttype == 'instructor') { 
+    if (accounttype === 'instructor') {
         console.log(accounttype);
-        return true; 
+        return true;
     }
-
-    // return false if user is not instructor or admin 
-    return false; 
+    // return false if user is not instructor or admin
+    return false;
 };
 
 User.isGlobalModerator = async function (uid) {
