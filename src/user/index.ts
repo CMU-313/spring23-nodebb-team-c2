@@ -1,14 +1,16 @@
 'use strict';
 
-const _ = require('lodash');
+import { Router, Request, Response } from 'express';
+import _ from 'lodash';
+import groups from '../groups';
+import plugins from '../plugins';
+import db from '../database';
+import privileges from '../privileges';
+import categories from '../categories';
+import meta from '../meta';
+import utils from '../utils';
 
-const groups = require('../groups');
-const plugins = require('../plugins');
-const db = require('../database');
-const privileges = require('../privileges');
-const categories = require('../categories');
-const meta = require('../meta');
-const utils = require('../utils');
+
 
 const User = module.exports;
 
