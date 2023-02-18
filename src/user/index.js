@@ -150,10 +150,8 @@ User.isAdministrator = async function (uid) {
         return true;
     }
     const accounttype = await User.getUserField(uid, 'accounttype');
-    if (accounttype === 'instructor') {
-        console.log(accounttype);
-        return true;
-    }
+    if (accounttype === 'instructor') { return true; }
+
     // return false if user is not instructor or admin
     return false;
 };
