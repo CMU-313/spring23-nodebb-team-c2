@@ -147,9 +147,8 @@ User.isModeratorOfAnyCategory = async function (uid) {
 
 User.isAdministrator = async function (uid) {
     if (await privileges.users.isAdministrator(uid)) {
-        return true; 
+        return true;
     }
-
     const accounttype = await User.getUserField(uid, 'accounttype');
     if (accounttype == 'instructor') { return true; }
 
