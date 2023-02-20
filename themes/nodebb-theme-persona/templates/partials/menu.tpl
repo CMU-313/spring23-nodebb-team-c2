@@ -233,29 +233,61 @@
                 </ul>
 
                 <ul id="main-nav" class="nav navbar-nav">
-                    {{{each navigation}}}
-                    <!-- IF function.displayMenuItem, @index -->
-                    <li class="{navigation.class}{{{ if navigation.dropdown }}} dropdown{{{ end }}}">
-                        <a title="{navigation.title}" class="navigation-link {{{ if navigation.dropdown }}}dropdown-toggle{{{ end }}}"
-                        {{{ if navigation.dropdown }}} href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {{{ else }}} href="{navigation.route}"{{{ end }}} {{{ if navigation.id }}}id="{navigation.id}"{{{ end }}}{{{ if navigation.targetBlank }}} target="_blank"{{{ end }}}>
-                            {{{ if navigation.iconClass }}}
-                            <i class="fa fa-fw {navigation.iconClass}" data-content="{navigation.content}"></i>
-                            {{{ end }}}
-                            {{{ if navigation.text }}}
-                            <span class="{navigation.textClass}">{navigation.text}</span>
-                            {{{ end }}}
-                            {{{ if navigation.dropdown}}}
-                            <i class="fa fa-caret-down"></i>
-                            {{{ end }}}
+                    <li class="">
+                        <a title="" class="navigation-link " href="/unread" id="unread-count" data-original-title="Unread">
+                            <i class="fa fa-fw fa-inbox" data-content="0"></i>
+                            <span class="visible-xs-inline">Unread</span>
                         </a>
-                        {{{ if navigation.dropdown }}}
-                        <ul class="dropdown-menu">
-                            {navigation.dropdownContent}
-                        </ul>
-                        {{{ end }}}
                     </li>
-                    <!-- ENDIF function.displayMenuItem -->
-                    {{{end}}}
+
+                    <li class="">
+                        <a title="" class="navigation-link " href="/recent" data-original-title="Recent">
+                            <i class="fa fa-fw fa-clock-o" data-content=""></i>
+                            <span class="visible-xs-inline">Recent</span>
+                        </a>
+                    </li>
+                    
+                    <li class="">
+                        <a title="" class="navigation-link " href="/tags" data-original-title="Tags">
+                            <i class="fa fa-fw fa-tags" data-content=""></i>
+                            <span class="visible-xs-inline">Tags</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a title="" class="navigation-link " href="/popular" data-original-title="Popular">
+                            <i class="fa fa-fw fa-fire" data-content=""></i>
+                            <span class="visible-xs-inline">Popular</span>
+                        </a>
+                    </li>
+                    
+                    <li class="">
+                        <a title="" class="navigation-link " href="/users" data-original-title="Users">
+                            <i class="fa fa-fw fa-user" data-content=""></i>
+                            <span class="visible-xs-inline">Users</span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a title="" class="navigation-link " href="/groups" data-original-title="Groups">
+                            <i class="fa fa-fw fa-group" data-content=""></i>
+                            <span class="visible-xs-inline">Groups</span>
+                        </a>
+                    </li>
+                    
+                    <li class="">
+                        <a title="" class="navigation-link " href="/career" data-original-title="Career">
+                            <i class="fa fa-fw fa-briefcase" data-content=""></i>
+                            <span class="visible-xs-inline">Career</span>
+                        </a>
+                    </li>
+                    
+                    <li class="">
+                        <a title="" class="navigation-link " href="/admin" data-original-title="Admin">
+                            <i class="fa fa-fw fa-cogs" data-content=""></i>
+                            <span class="visible-xs-inline">Admin</span>
+                        </a>
+                    </li>
                 </ul>
 
                 <!-- ELSE -->

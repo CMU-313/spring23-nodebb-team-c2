@@ -109,15 +109,79 @@ function getStatus(userData) {
     }
     const isOnline = (Date.now() - userData.lastonline) < (meta.config.onlineCutoff * 60000);
     return isOnline ? (userData.status || 'online') : 'offline';
-}
-exports.getStatus = getStatus;
-function getUidByUsername(username) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!username) {
-            return 0;
-        }
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-        return yield db.sortedSetScore('username:uid', username);
+};
+
+User.getUidByUsername = async function (username) {
+    if (!username) {
+        return 0;
+    }
+    return await db.sortedSetScore('username:uid', username);
+};
+
+User.getUidsByUsernames = async function (usernames) {
+    return await db.sortedSetScores('username:uid', usernames);
+};
+
+User.getUidByUserslug = async function (userslug) {
+    if (!userslug) {
+        return 0;
+    }
+    return await db.sortedSetScore('userslug:uid', userslug);
+};
+
+User.getUsernamesByUids = async function (uids) {
+    const users = await User.getUsersFields(uids, ['username']);
+    return users.map(user => user.username);
+};
+
+User.getUsernameByUserslug = async function (slug) {
+    const uid = await User.getUidByUserslug(slug);
+    return await User.getUserField(uid, 'username');
+};
+
+User.getUidByEmail = async function (email) {
+    return await db.sortedSetScore('email:uid', email.toLowerCase());
+};
+
+User.getUidsByEmails = async function (emails) {
+    emails = emails.map(email => email && email.toLowerCase());
+    return await db.sortedSetScores('email:uid', emails);
+};
+
+User.getUsernameByEmail = async function (email) {
+    const uid = await db.sortedSetScore('email:uid', String(email).toLowerCase());
+    return await User.getUserField(uid, 'username');
+};
+
+User.isModerator = async function (uid, cid) {
+    return await privileges.users.isModerator(uid, cid);
+};
+
+User.isModeratorOfAnyCategory = async function (uid) {
+    const cids = await User.getModeratedCids(uid);
+    return Array.isArray(cids) ? !!cids.length : false;
+};
+
+User.isAdministrator = async function (uid) {
+    if (await privileges.users.isAdministrator(uid)) {
+        return true;
+    }
+    const accounttype = await User.getUserField(uid, 'accounttype');
+    if (accounttype === 'instructor') { return true; }
+
+    // return false if user is not instructor or admin
+    return false;
+};
+
+User.isGlobalModerator = async function (uid) {
+    return await privileges.users.isGlobalModerator(uid);
+};
+
+User.getPrivileges = async function (uid) {
+    return await utils.promiseParallel({
+        isAdmin: User.isAdministrator(uid),
+        isGlobalModerator: User.isGlobalModerator(uid),
+        isModeratorOfAnyCategory: User.isModeratorOfAnyCategory(uid),
     });
 }
 exports.getUidByUsername = getUidByUsername;
