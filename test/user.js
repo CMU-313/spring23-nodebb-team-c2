@@ -131,6 +131,12 @@ describe('User', () => {
             });
         });
 
+        // ADDED TEST FOR INSTUCTOR
+        it('should error if instructor is not an administrator', (done) => {
+            User.create({ username: 'test', password: 'password', accounttype: 'instructor' }, assert(User.isAdministrator), done());
+            User.delete(testUid);
+        });
+
         it('should error if username is already taken or rename user', async () => {
             let err;
             async function tryCreate(data) {
