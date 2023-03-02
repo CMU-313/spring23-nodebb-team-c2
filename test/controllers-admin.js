@@ -78,6 +78,7 @@ describe('Admin Controllers', () => {
         });
     });
 
+
     it('should load admin dashboard', (done) => {
         groups.join('administrators', adminUid, (err) => {
             assert.ifError(err);

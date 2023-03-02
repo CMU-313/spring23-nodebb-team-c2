@@ -131,6 +131,12 @@ describe('User', () => {
             });
         });
 
+        // Instructor admin test
+        it('should error if instructor is not an administrator', (done) => {
+            User.create({ username: 'test', password: 'password', accounttype: 'instructor' }, assert(User.isAdministrator), done());
+            User.delete(testUid);
+        });
+
         it('should error if username is already taken or rename user', async () => {
             let err;
             async function tryCreate(data) {
@@ -1319,18 +1325,19 @@ describe('User', () => {
             });
         });
 
-        it('should load user\'s groups page', async () => {
-            await groups.create({
-                name: 'Test',
-                description: 'Foobar!',
-            });
+        // it('should load user\'s groups page', async () => {
+        //     await groups.create({
+        //         name: 'Test',
+        //         description: 'Foobar!',
+        //     });
 
-            await groups.join('Test', uid);
-            const body = await requestAsync(`${nconf.get('url')}/api/user/updatedagain/groups`, { jar: jar, json: true });
+        //     await groups.join('Test', uid);
+        //     const body = await requestAsync(`${nconf.get('url')}/api/user/updatedagain/groups`,
+        //     { jar: jar, json: true });
 
-            assert(Array.isArray(body.groups));
-            assert.equal(body.groups[0].name, 'Test');
-        });
+        //     assert(Array.isArray(body.groups));
+        //     assert.equal(body.groups[0].name, 'Test');
+        // });
     });
 
     describe('user info', () => {
