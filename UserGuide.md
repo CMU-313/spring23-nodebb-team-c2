@@ -4,13 +4,13 @@ User guide for new privileges on NodeBB:
 
 The application now gives all users who are registered as “instructor” admin privileges, which means that an account with accounttype =  “instructor” should see the admin dashboard on the navigation bar in NodeBB’s home page. Going into the admin dashboard, the instructor could modify plugins, create groups, add categories to forums etc. 
 
-![alt text](https://github.com/CMU-313/spring23-nodebb-team-c2/blob/main/UserGuideImages/Screenshot%202023-03-02%20at%202.51.37%20PM.png)
+![alt text](https://github.com/CMU-313/spring23-nodebb-team-c2/blob/main/UserGuideImages/Screenshot%202023-03-02%20at%202.50.53%20PM.png)
   
 Figure 1: nodeBB register page, where users can register under the student, instructor, or TA account type.
 
 To quickly user test this functionality, register an account and select “instructor” in the account type selection box (figure 1). After that, first check the “groups” page, where the newly created user should be in the “isAdministrator” group by default. 
 
-![alt text](https://github.com/CMU-313/spring23-nodebb-team-c2/blob/main/UserGuideImages/Screenshot%202023-03-02%20at%202.50.53%20PM.png)
+![alt text](https://github.com/CMU-313/spring23-nodebb-team-c2/blob/main/UserGuideImages/Screenshot%202023-03-02%20at%202.51.37%20PM.png)
 Figure 2: the navigation bar for a nodeBB user, where instructors can access the admin portal using the rightmost button
 
 Then, click the admin dashboard option on the navigation bar (figure 2). Nodebb should then direct you to the dashboard functionalities provided originally to the administrator (created during Nodebb setup), giving you full access to customize Nodebb (figure 3).
