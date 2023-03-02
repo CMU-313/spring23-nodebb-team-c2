@@ -1332,7 +1332,8 @@ describe('User', () => {
         //     });
 
         //     await groups.join('Test', uid);
-        //     const body = await requestAsync(`${nconf.get('url')}/api/user/updatedagain/groups`, { jar: jar, json: true });
+        //     const body = await requestAsync(`${nconf.get('url')}/api/user/updatedagain/groups`,
+        //     { jar: jar, json: true });
 
         //     assert(Array.isArray(body.groups));
         //     assert.equal(body.groups[0].name, 'Test');
