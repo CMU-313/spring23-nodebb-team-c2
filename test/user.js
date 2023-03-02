@@ -1318,16 +1318,19 @@ describe('User', () => {
                 simple: false,
             });
         });
-        // it('should load user\'s groups page', async () => {
-        //   await groups.create({
-        //       name: 'Test',
-        //        description: 'Foobar!',
-        //    });
-        //    await groups.join('Test', uid);
-        // const body=await requestAsync(`${nconf.get('url')}/api/user/updatedagain/groups`, { jar: jar, json: true });
-        //    assert(Array.isArray(body.groups));
-        //   assert.equal(body.groups[0].name, 'Test');
-        // });
+
+        it('should load user\'s groups page', async () => {
+            await groups.create({
+                name: 'Test',
+                description: 'Foobar!',
+            });
+
+            await groups.join('Test', uid);
+            const body = await requestAsync(`${nconf.get('url')}/api/user/updatedagain/groups`, { jar: jar, json: true });
+
+            assert(Array.isArray(body.groups));
+            assert.equal(body.groups[0].name, 'Test');
+        });
     });
 
     describe('user info', () => {
