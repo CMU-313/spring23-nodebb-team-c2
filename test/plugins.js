@@ -324,6 +324,7 @@ describe('Plugins', () => {
         const activePlugins = [
             'nodebb-plugin-markdown',
             'nodebb-plugin-mentions',
+            'nodebb-plugin-dbsearch', // Add db search to active plugins
         ];
         const inactivePlugin = 'nodebb-plugin-emoji';
         beforeEach((done) => {
@@ -333,6 +334,15 @@ describe('Plugins', () => {
         afterEach((done) => {
             nconf.set('plugins:active', undefined);
             done();
+        });
+
+        // Added test to ensure db search is activated
+        it('should make sure dbsearch is activated', (done) => {
+            plugins.isActive(activePlugins[2], (err, isActive) => {
+                assert.ifError(err);
+                assert(isActive);
+                done();
+            });
         });
 
         it('should return active plugin state from configuration', (done) => {
