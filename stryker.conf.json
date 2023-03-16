@@ -10,5 +10,6 @@
   "testRunner": "command",
   "testRunner_comment": "Take a look at (missing 'homepage' URL in package.json) for information about the command plugin.",
   "coverageAnalysis": "off",
-  "buildCommand": "./nodebb build"
+  "buildCommand": "./nodebb build",
+  "mutate": ["src/**/*.js"]
 }
