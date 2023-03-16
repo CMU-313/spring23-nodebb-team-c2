@@ -492,11 +492,11 @@ async function enableDefaultPlugins() {
 
     let defaultEnabled = [
         'nodebb-plugin-composer-default',
-        'nodebb-plugin-markdown',
+        // 'nodebb-plugin-markdown',
         'nodebb-plugin-mentions',
         'nodebb-widget-essentials',
-        'nodebb-rewards-essentials',
-        'nodebb-plugin-emoji',
+        // 'nodebb-rewards-essentials',
+        // 'nodebb-plugin-emoji',
         'nodebb-plugin-emoji-android',
         'nodebb-plugin-dbsearch',
     ];
