@@ -1132,7 +1132,7 @@ describe('Controllers', () => {
                 assert.equal(res.statusCode, 200);
                 assert(body.widgets);
                 assert(body.widgets.sidebar);
-                // assert.equal(body.widgets.sidebar[0].html, 'test');
+                assert.equal(body.widgets.sidebar[0].html, 'test');
                 done();
             });
         });
@@ -1954,9 +1954,9 @@ describe('Controllers', () => {
 
     it('should return osd data', (done) => {
         request(`${nconf.get('url')}/osd.xml`, (err, res, body) => {
-            // assert.ifError(err);
-            // assert.equal(res.statusCode, 200);
-            // assert(body);
+            assert.ifError(err);
+            assert.equal(res.statusCode, 200);
+            assert(body);
             done();
         });
     });

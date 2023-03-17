@@ -66,7 +66,6 @@ const yargs = require('yargs');
 const pkg = require('../../install/package.json');
 const file = require('../file');
 const prestart = require('../prestart');
-const { exit } = require('process');
 
 program.configureHelp(require('./colors'));
 
@@ -99,7 +98,7 @@ prestart.versionCheck();
 
 if (!configExists && process.argv[2] !== 'setup') {
     require('./setup').webInstall();
-    exit;
+    return;
 }
 
 process.env.CONFIG = configFile;
