@@ -82,3 +82,8 @@ theme/*.sublime-workspace
 theme/.idea
 theme/.vscode
 theme/node_modules/
+
+# stryker temp files
+.stryker-tmp
+# stryker report files
+reports/
