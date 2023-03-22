@@ -76,9 +76,11 @@ jobs:
         run: |
           node app --setup="${SETUP}" --ci="${CI}"
 
-      - name: Deploy
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
+      - name: Setup flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Deploy step
+        run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: hXrGxCZVmjN4TBLukk3DpjTsKolp8DzsY6iWyAIJoCA
 
