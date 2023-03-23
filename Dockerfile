@@ -12,9 +12,13 @@ COPY --chown=node:node install/package.json /usr/src/app/package.json
 USER node
 
 RUN npm install --only=prod && \   
+    npm run postinstall && \    
     npm cache clean --force
 
 COPY --chown=node:node . /usr/src/app
+
+RUN cp install/db_config.json config.json 
+# added
 
 ENV NODE_ENV=production \
     daemon=false \
