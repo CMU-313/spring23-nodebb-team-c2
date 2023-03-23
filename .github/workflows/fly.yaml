@@ -15,7 +15,7 @@ defaults:
 
 jobs:
   deploy:
-
+    runs-on: ubuntu-latest
     permissions:
       checks: write  # for coverallsapp/github-action to create new checks
       contents: read  # for actions/checkout to fetch code
@@ -49,7 +49,7 @@ jobs:
           useLockFile: false
 
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      
+
       - name: Setup on Redis
         if: startsWith(matrix.database, 'redis')
         env:
