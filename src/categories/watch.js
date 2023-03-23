@@ -11,7 +11,7 @@ module.exports = function (Categories) {
     };
 
     Categories.isIgnored = async function (cids, uid) {
-        if (!(parseInt(uid, 10) > 0)) {
+        if ((parseInt(uid, 10) <= 0)) {
             return cids.map(() => false);
         }
         const states = await Categories.getWatchState(cids, uid);
@@ -19,7 +19,7 @@ module.exports = function (Categories) {
     };
 
     Categories.getWatchState = async function (cids, uid) {
-        if (!(parseInt(uid, 10) > 0)) {
+        if ((parseInt(uid, 10) <= 0)) {
             return cids.map(() => Categories.watchStates.notwatching);
         }
         if (!Array.isArray(cids) || !cids.length) {

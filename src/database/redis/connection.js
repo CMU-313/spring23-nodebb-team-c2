@@ -42,7 +42,7 @@ connection.connect = async function (options) {
         }
 
         const dbIdx = parseInt(options.database, 10);
-        if (!(dbIdx >= 0)) {
+        if ((dbIdx < 0)) {
             throw new Error('[[error:no-database-selected]]');
         }
 

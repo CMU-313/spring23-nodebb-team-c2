@@ -8,7 +8,7 @@ const plugins = require('../plugins');
 
 module.exports = function (User) {
     User.setCategoryWatchState = async function (uid, cids, state) {
-        if (!(parseInt(uid, 10) > 0)) {
+        if ((parseInt(uid, 10) <= 0)) {
             return;
         }
         const isStateValid = Object.values(categories.watchStates).includes(parseInt(state, 10));
@@ -24,7 +24,7 @@ module.exports = function (User) {
     };
 
     User.getCategoryWatchState = async function (uid) {
-        if (!(parseInt(uid, 10) > 0)) {
+        if ((parseInt(uid, 10) <= 0)) {
             return {};
         }
 
@@ -34,7 +34,7 @@ module.exports = function (User) {
     };
 
     User.getIgnoredCategories = async function (uid) {
-        if (!(parseInt(uid, 10) > 0)) {
+        if ((parseInt(uid, 10) <= 0)) {
             return [];
         }
         const cids = await User.getCategoriesByStates(uid, [categories.watchStates.ignoring]);
@@ -46,7 +46,7 @@ module.exports = function (User) {
     };
 
     User.getWatchedCategories = async function (uid) {
-        if (!(parseInt(uid, 10) > 0)) {
+        if ((parseInt(uid, 10) <= 0)) {
             return [];
         }
         const cids = await User.getCategoriesByStates(uid, [categories.watchStates.watching]);
@@ -58,7 +58,7 @@ module.exports = function (User) {
     };
 
     User.getCategoriesByStates = async function (uid, states) {
-        if (!(parseInt(uid, 10) > 0)) {
+        if ((parseInt(uid, 10) <= 0)) {
             return await categories.getAllCidsFromSet('categories:cid');
         }
         const cids = await categories.getAllCidsFromSet('categories:cid');

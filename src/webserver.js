@@ -315,7 +315,7 @@ exports.testSocket = async function (socketPath) {
             }
             // The socket was stale, kick it out of the way
             fs.unlink(socketPath, (err) => {
-                if (err) reject(err); else resolve();
+                if (err) { reject(err); } else { resolve(); }
             });
         });
         testSocket.connect({ path: socketPath }, () => {
