@@ -8,14 +8,14 @@ on:
     branches:
       - main
 
-defaults:
-  run:
-    shell: bash
-
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
     permissions:
       checks: write  # for coverallsapp/github-action to create new checks
       contents: read  # for actions/checkout to fetch code
@@ -41,7 +41,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 16
 
       - name: NPM Install
         uses: bahmutov/npm-install@v1
@@ -51,7 +51,6 @@ jobs:
       - uses: superfly/flyctl-actions/setup-flyctl@master
 
       - name: Setup on Redis
-        if: startsWith(matrix.database, 'redis')
         env:
           SETUP: >-
             {
