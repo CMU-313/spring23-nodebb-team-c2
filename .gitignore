@@ -82,3 +82,6 @@ theme/*.sublime-workspace
 theme/.idea
 theme/.vscode
 theme/node_modules/
+
+# JSHint ignore 
+jshint-report.txt
