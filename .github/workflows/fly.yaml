@@ -12,12 +12,9 @@ defaults:
   run:
     shell: bash
 
-permissions:
-  contents: read
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
 
     permissions:
       checks: write  # for coverallsapp/github-action to create new checks
@@ -51,6 +48,8 @@ jobs:
         with:
           useLockFile: false
 
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      
       - name: Setup on Redis
         if: startsWith(matrix.database, 'redis')
         env:
@@ -78,7 +77,6 @@ jobs:
         run: |
           node app --setup="${SETUP}" --ci="${CI}"
 
-      - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
