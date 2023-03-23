@@ -1,0 +1,156 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy App
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+    permissions:
+      checks: write  # for coverallsapp/github-action to create new checks
+      contents: read  # for actions/checkout to fetch code
+
+    services:
+      redis:
+        image: 'redis:2.8.23'
+        # Set health checks to wait until redis has started
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps port 6379 on service container to the host
+          - 6379:6379
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - run: cp install/package.json package.json
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: NPM Install
+        uses: bahmutov/npm-install@v1
+        with:
+          useLockFile: false
+
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Setup on Redis
+        env:
+          SETUP: >-
+            {
+              "url": "http://127.0.0.1:4567",
+              "secret": "abcdef",
+              "admin:username": "adminC2",
+              "admin:email": "admin@admin.org",
+              "admin:password": "123pass123",
+              "admin:password:confirm": "123pass123",
+
+              "database": "redis",
+              "redis:host": "127.0.0.1",
+              "redis:port": 6379,
+              "redis:password": "",
+              "redis:database": 0
+            }
+          CI: >-
+            {
+              "host": "127.0.0.1",
+              "database": 1,
+              "port": 6379
+            }
+        run: |
+          node app --setup="${SETUP}" --ci="${CI}"
+
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+# name: Fly Deploy
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+#   pull_request:
+#     branches:
+#       - main
+
+# jobs:
+#   deploy:
+#     name: Deploy
+
+#     permissions:
+#       checks: write  
+#       contents: read  
+
+#     strategy:
+#       fail-fast: false
+
+#     services:
+#       redis:
+#         image: 'redis:2.8.23'
+#         options: >-
+#           --health-cmd "redis-cli ping"
+#           --health-interval 10s
+#           --health-timeout 5s
+#           --health-retries 5
+#         ports:
+#           - 6379:6379
+
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - run: cp install/package.json package.json
+
+#       - name: Install Node
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: 16
+
+#       - name: NPM Install
+#         uses: bahmutov/npm-install@v1
+#         with:
+#           useLockFile: false
+
+#       - uses: superfly/flyctl-actions/setup-flyctl@master
+
+#       - name: Setup on Redis
+#         env:
+#           SETUP: >-
+#             {
+#               "url": "http://127.0.0.1:4567",
+#               "secret": "abcdef",
+#               "admin:username": "adminC2",
+#               "admin:email": "admin@admin.org",
+#               "admin:password": "123pass123",
+#               "admin:password:confirm": "123pass123",
+#               "database": "redis",
+#               "redis:host": "127.0.0.1",
+#               "redis:port": 6379,
+#               "redis:password": "",
+#               "redis:database": 0
+#             }
+#           CI: >-
+#             {
+#               "host": "127.0.0.1",
+#               "database": 1,
+#               "port": 6379
+#             }
+#         run: |
+#           node app --setup="${SETUP}" --ci="${CI}"
+#       - run: flyctl deploy --remote-only
+#         env:
+#           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

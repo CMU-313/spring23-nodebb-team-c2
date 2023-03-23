@@ -1,0 +1,12 @@
+{
+  "url": "http://nodebb-c2.fly.dev",
+  "secret": "0932825b-4f5e-432e-b0a4-b05da4365c99",
+  "database": "redis",
+  "port": "4567",
+  "redis": {
+      "host": "fly-nodebb-c2-redis.upstash.io",
+      "port": "6379",
+      "password": "748e3e34cf1e42baac406090d167d854",
+      "database": "0"
+  }
+}
