@@ -70,11 +70,9 @@ define('forum/career', [
     function validateRangedInt(value, value_notify, min_val, max_val) {
         if (!value || isNaN(value)) {
             showError(value_notify, `Must be a valid integer`);
-        }
-        else if (parseInt(value, 10) < min_val || parseInt(value, 10) > max_val) {
+        } else if (parseInt(value, 10) < min_val || parseInt(value, 10) > max_val) {
             showError(value_notify, `Must be within the range [${min_val}, ${max_val}]`);
-        } 
-        else {
+        } else {
             showSuccess(value_notify);
         }
     }
@@ -82,11 +80,9 @@ define('forum/career', [
     function validateRangedFloat(value, value_notify, min_val, max_val) {
         if (!value || isNaN(value)) {
             showError(value_notify, `Must be a valid floating point value`);
-        }
-        else if (parseFloat(value) < min_val || parseFloat(value) > max_val) {
+        } else if (parseFloat(value) < min_val || parseFloat(value) > max_val) {
             showError(value_notify, `Must be within the range [${min_val}, ${max_val}]`);
-        } 
-        else {
+        } else {
             showSuccess(value_notify);
         }
     }
