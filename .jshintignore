@@ -4,7 +4,7 @@ src/controllers/composer.js
 src/controllers/errors.js
 src/controllers/helpers.js
 src/controllers/index.js
-src/controllers/sitemap.js:
+src/controllers/sitemap.js
 src/database/mongo.js
 src/file.js
 src/flags.js
