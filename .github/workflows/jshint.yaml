@@ -1,0 +1,14 @@
+name: JSHint
+on:
+  push:
+    branches:
+      - main
+jobs:
+  jshint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install JSHint
+        run: npm install -g jshint
+      - name: Run on repo
+        run: jshint src/
