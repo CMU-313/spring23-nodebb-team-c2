@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+  pull_request:
+    branches:
+      - main
+
 jobs:
   deploy:
     name: Deploy App
@@ -72,6 +76,12 @@ jobs:
             }
         run: |
           node app --setup="${SETUP}" --ci="${CI}"
+
+      - name: Retrieve Config Secrets
+        env:
+          REDIS_CONFIG: ${{ secrets.REDIS_CONFIG }}
+        run: |
+          echo ${REDIS_CONFIG} > install/redis_config.json
 
       - run: flyctl deploy --remote-only
         env:
