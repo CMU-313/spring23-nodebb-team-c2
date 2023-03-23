@@ -30,3 +30,8 @@ src/topics/follow.js
 src/topics/unread.js
 src/socket.io/categories.js
 src/types/index.js
+src/categories
+src/plugins
+src/user
+src/webserver.js
+src/database
