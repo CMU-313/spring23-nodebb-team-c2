@@ -1,4 +1,4 @@
-name: Fly Deploy
+name: Deploy
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy app
+    name: Deploy
     
     permissions:
       checks: write  # for coverallsapp/github-action to create new checks
@@ -80,7 +80,7 @@ jobs:
           echo ${DB_CONFIG} > install/db_config.json
       - run: flyctl deploy --remote-only
         env:
-          FLY_API_TOKEN: hXrGxCZVmjN4TBLukk3DpjTsKolp8DzsY6iWyAIJoCA
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 #team green
 
 
