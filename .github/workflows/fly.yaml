@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  deploy:
     runs-on: ubuntu-latest #added
 
     permissions:
@@ -78,7 +78,8 @@ jobs:
         run: |
           node app --setup="${SETUP}" --ci="${CI}"
 
-  
+      - run: ./nodebb build
+
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only
         env:
