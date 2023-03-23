@@ -16,6 +16,9 @@ RUN npm install --only=prod && \
 
 COPY --chown=node:node . /usr/src/app
 
+#RUN cp install/db_config.json config.json 
+#added from team green
+
 ENV NODE_ENV=production \
     daemon=false \
     silent=false

@@ -1,32 +1,23 @@
-name: Fly Deploy
+ame: Fly Deploy
+
 on:
   push:
     branches:
       - main
-
   pull_request:
-     branches:
+    branches:
       - main
+
 jobs:
-  build:
+  deploy:
+    name: Deploy app
+    
     permissions:
       checks: write  # for coverallsapp/github-action to create new checks
       contents: read  # for actions/checkout to fetch code
-    name: Build Before Deploy
+
     strategy:
       fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-        node: [18]
-        database: [redis]
-        include:
-          # only run coverage once
-          - os: ubuntu-latest
-            node: 18
-          # test under development once
-          # - database: mongo-dev
-          #   test_env: development
-    runs-on: ${{ matrix.os }}
 
     services:
       redis:
@@ -41,33 +32,33 @@ jobs:
           # Maps port 6379 on service container to the host
           - 6379:6379
 
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - run: cp install/package.json package.json
 
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 16
 
       - name: NPM Install
         uses: bahmutov/npm-install@v1
         with:
           useLockFile: false
 
+      - uses: superfly/flyctl-actions/setup-flyctl@master
 
       - name: Setup on Redis
-        if: startsWith(matrix.database, 'redis')
         env:
           SETUP: >-
             {
               "url": "http://127.0.0.1:4567",
               "secret": "abcdef",
-              "admin:username": "adminC2",
-              "admin:email": "admin@a.com",
-              "admin:password": "admin123456",
-              "admin:password:confirm": "admin123456",
+              "admin:username": "admin",
+              "admin:email": "test@example.org",
+              "admin:password": "hAN3Eg8W",
+              "admin:password:confirm": "hAN3Eg8W",
               "database": "redis",
               "redis:host": "127.0.0.1",
               "redis:port": 6379,
@@ -82,15 +73,15 @@ jobs:
             }
         run: |
           node app --setup="${SETUP}" --ci="${CI}"
-      
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-
+      - name: Setup config
+        env:
+          DB_CONFIG: ${{ secrets.DB_CONFIG }}
+        run: |
+          echo ${DB_CONFIG} > install/db_config.json
       - run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: hXrGxCZVmjN4TBLukk3DpjTsKolp8DzsY6iWyAIJoCA
-
-#testing team floridas code
-
+#team green
 
 
 # name: Deploy
