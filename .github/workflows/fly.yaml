@@ -1,91 +1,3 @@
-# name: Deploy
-
-# on:
-#   push:
-#     branches:
-#       - main
-#   pull_request:
-#     branches:
-#       - main
-
-# defaults:
-#   run:
-#     shell: bash
-
-# permissions:
-#   contents: read
-
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest #added
-
-#     permissions:
-#       checks: write  # for coverallsapp/github-action to create new checks
-#       contents: read  # for actions/checkout to fetch code
-
-#     services:
-#       redis:
-#         image: 'redis:2.8.23'
-#         # Set health checks to wait until redis has started
-#         options: >-
-#           --health-cmd "redis-cli ping"
-#           --health-interval 10s
-#           --health-timeout 5s
-#           --health-retries 5
-#         ports:
-#           # Maps port 6379 on service container to the host
-#           - 6379:6379
-
-#     steps:
-#       - uses: actions/checkout@v3
-
-#       - run: cp install/package.json package.json
-
-#       - name: Install Node
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: ${{ matrix.node }}
-
-#       - name: NPM Install
-#         uses: bahmutov/npm-install@v1
-#         with:
-#           useLockFile: false
-
-#       - name: Setup on Redis
-#         if: startsWith(matrix.database, 'redis')
-#         env:
-#           SETUP: >-
-#             {
-#               "url": ""http://nodebb-c2.fly.dev",
-#               "secret": "0932825b-4f5e-432e-b0a4-b05da4365c99",
-#               "admin:username": "adminC2",
-#               "admin:email": "ryan.lin.608@gmail.com",
-#               "admin:password": "123pass123",
-#               "admin:password:confirm": "123pass123",
-
-#               "database": "redis",
-#               "redis:host": "fly-nodebb-c2-redis.upstash.io",
-#               "redis:port": 6379,
-#               "redis:password": "748e3e34cf1e42baac406090d167d854",
-#               "redis:database": 0
-#             }
-#           CI: >-
-#             {
-#               "host": "127.0.0.1",
-#               "database": 1,
-#               "port": 6379
-#             }
-#         run: |
-#           node app --setup="${SETUP}" --ci="${CI}"
-
-#       - run: ./nodebb build # BUILD??
-
-#       - uses: superfly/flyctl-actions/setup-flyctl@master
-#       - run: flyctl deploy --remote-only
-#         env:
-#           FLY_API_TOKEN: hXrGxCZVmjN4TBLukk3DpjTsKolp8DzsY6iWyAIJoCA
-
-
 name: Fly Deploy
 on:
   push:
@@ -174,3 +86,93 @@ jobs:
           FLY_API_TOKEN: hXrGxCZVmjN4TBLukk3DpjTsKolp8DzsY6iWyAIJoCA
 
 #testing team floridas code
+
+
+
+# name: Deploy
+
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
+
+# defaults:
+#   run:
+#     shell: bash
+
+# permissions:
+#   contents: read
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest #added
+
+#     permissions:
+#       checks: write  # for coverallsapp/github-action to create new checks
+#       contents: read  # for actions/checkout to fetch code
+
+#     services:
+#       redis:
+#         image: 'redis:2.8.23'
+#         # Set health checks to wait until redis has started
+#         options: >-
+#           --health-cmd "redis-cli ping"
+#           --health-interval 10s
+#           --health-timeout 5s
+#           --health-retries 5
+#         ports:
+#           # Maps port 6379 on service container to the host
+#           - 6379:6379
+
+#     steps:
+#       - uses: actions/checkout@v3
+
+#       - run: cp install/package.json package.json
+
+#       - name: Install Node
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: ${{ matrix.node }}
+
+#       - name: NPM Install
+#         uses: bahmutov/npm-install@v1
+#         with:
+#           useLockFile: false
+
+#       - name: Setup on Redis
+#         if: startsWith(matrix.database, 'redis')
+#         env:
+#           SETUP: >-
+#             {
+#               "url": ""http://nodebb-c2.fly.dev",
+#               "secret": "0932825b-4f5e-432e-b0a4-b05da4365c99",
+#               "admin:username": "adminC2",
+#               "admin:email": "ryan.lin.608@gmail.com",
+#               "admin:password": "123pass123",
+#               "admin:password:confirm": "123pass123",
+
+#               "database": "redis",
+#               "redis:host": "fly-nodebb-c2-redis.upstash.io",
+#               "redis:port": 6379,
+#               "redis:password": "748e3e34cf1e42baac406090d167d854",
+#               "redis:database": 0
+#             }
+#           CI: >-
+#             {
+#               "host": "127.0.0.1",
+#               "database": 1,
+#               "port": 6379
+#             }
+#         run: |
+#           node app --setup="${SETUP}" --ci="${CI}"
+
+#       - run: ./nodebb build # BUILD??
+
+#       - uses: superfly/flyctl-actions/setup-flyctl@master
+#       - run: flyctl deploy --remote-only
+#         env:
+#           FLY_API_TOKEN: hXrGxCZVmjN4TBLukk3DpjTsKolp8DzsY6iWyAIJoCA
+
