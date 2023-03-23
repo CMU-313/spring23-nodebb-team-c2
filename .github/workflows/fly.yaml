@@ -97,12 +97,6 @@ jobs:
               }
           dir: 'install/'
 
-      # - name: Retrieve Config Secrets
-      #   env:
-      #     REDIS_CONFIG: ${{ secrets.REDIS_CONFIG }}
-      #   run: |
-      #     echo $REDIS_CONFIG > install/redis_config.json
-
       - run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
