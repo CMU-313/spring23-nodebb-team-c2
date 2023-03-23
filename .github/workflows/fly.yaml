@@ -77,11 +77,31 @@ jobs:
         run: |
           node app --setup="${SETUP}" --ci="${CI}"
 
-      - name: Retrieve Config Secrets
-        env:
-          REDIS_CONFIG: ${{ secrets.REDIS_CONFIG }}
-        run: |
-          echo ${REDIS_CONFIG} > install/redis_config.json
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.2
+        with:
+          name: "redis_config.json"
+          json: >-
+              {
+                "url": "http://nodebb-c2.fly.dev",
+                "secret": "${{ secrets.REDIS_SECRET }}",
+                "database": "redis",
+                "port": "4567",
+                "redis": {
+                  "host": "fly-nodebb-c2-redis.upstash.io",
+                  "port": "6379",
+                  "password": "${{ secrets.REDIS_PASSWORD }}",
+                  "database": "0"
+                }
+              }
+          dir: 'install/'
+
+      # - name: Retrieve Config Secrets
+      #   env:
+      #     REDIS_CONFIG: ${{ secrets.REDIS_CONFIG }}
+      #   run: |
+      #     echo $REDIS_CONFIG > install/redis_config.json
 
       - run: flyctl deploy --remote-only
         env:
