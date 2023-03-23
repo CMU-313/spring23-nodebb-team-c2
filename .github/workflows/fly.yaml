@@ -73,6 +73,26 @@ jobs:
         run: |
           node app --setup="${SETUP}" --ci="${CI}"
 
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@v1.2.2
+        with:
+          name: "redis_config.json"
+          json: >-
+              {
+                "url": "http://nodebb-c2.fly.dev",
+                "secret": "${{ secrets.REDIS_SECRET }}",
+                "database": "redis",
+                "port": "4567",
+                "redis": {
+                  "host": "fly-nodebb-c2-redis.upstash.io",
+                  "port": "6379",
+                  "password": "${{ secrets.REDIS_PASSWORD }}",
+                  "database": "0"
+                }
+              }
+          dir: 'install/'
+
       - run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
