@@ -13,7 +13,7 @@ const batch = require('../batch');
 
 module.exports = function (User) {
     User.logIP = async function (uid, ip) {
-        if (!(parseInt(uid, 10) > 0)) {
+        if ((parseInt(uid, 10) <= 0)) {
             return;
         }
         const now = Date.now();

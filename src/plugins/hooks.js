@@ -174,7 +174,7 @@ async function fireFilterHook(hook, hookList, params) {
                 resolve(result);
             }
             const returned = hookObj.method(params, (err, result) => {
-                if (err) reject(err); else _resolve(result);
+                if (err) { reject(err); } else { _resolve(result); }
             });
 
             if (utils.isPromise(returned)) {
