@@ -85,3 +85,6 @@ theme/node_modules/
 
 # JSHint ignore 
 jshint-report.txt
+
+# Career Model: Python Ignores
+__pycache__
