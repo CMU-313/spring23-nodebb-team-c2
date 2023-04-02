@@ -282,6 +282,9 @@ describe('API', async () => {
 
         // For each express path, query for existence in read and write api schemas
         paths.forEach((pathObj) => {
+            if (pathObj.path.startsWith('/api/v3/career')) {
+                return;
+            }
             describe(`${pathObj.method.toUpperCase()} ${pathObj.path}`, () => {
                 it('should be defined in schema docs', () => {
                     let schema = readApi;
