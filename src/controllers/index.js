@@ -189,6 +189,7 @@ Controllers.register = async function (req, res, next) {
                             <option value="student" selected>Student</option>
                             <option value="instructor">Instructor</option>
                             <option value="TA">TA</option>
+                            <option value="recruiter">Recruiter</option>
                         </select>
                     `,
                 },
