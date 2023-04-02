@@ -20,7 +20,7 @@ Career.register = async (req, res) => {
             num_past_internships: userData.num_past_internships,
         };
 
-        // TODO: Change this line to do call and retrieve actual candidate success 
+        // TODO: Change this line to do call and retrieve actual candidate success
         // prediction from the model instead of using a random number
         userCareerData.prediction = Math.round(Math.random());
 
