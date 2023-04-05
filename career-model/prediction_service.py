@@ -2,6 +2,7 @@ from apiflask import APIFlask
 from apiflask import Schema
 from apiflask.fields import Integer, String
 from predict import predict
+import argparse
 
 app = APIFlask(__name__, docs_ui='swagger-ui', docs_path='/docs')
 
@@ -49,4 +50,13 @@ def make_prediction(student_data):
 
 
 if __name__ == '__main__': 
-    app.run(host="0.0.0.0", port=4000)
+    parser = argparse.ArgumentParser(prog="Prediction service", description='API service for predicting whether a student will be successful in career for NodeBB')
+    parser.add_argument('-p', '--production', action='store_true')
+    args = parser.parse_args()
+    is_production = args.production
+
+    if is_production: 
+        from waitress import serve 
+        serve(app, host="0.0.0.0", port=4000)
+    else: 
+        app.run(host="0.0.0.0", port=4000)
