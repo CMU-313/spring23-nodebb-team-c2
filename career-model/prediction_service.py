@@ -1,6 +1,7 @@
 from apiflask import APIFlask
 from apiflask import Schema
 from apiflask.fields import Integer, String
+from apiflask.validators import OneOf
 from predict import predict
 import argparse
 
@@ -13,21 +14,23 @@ def hello_world():
 
 
 
-# student = {
-#         "student_id": "student1",
-#         "major": "Computer Science",
-#         "age": "20",
-#         "gender": "M",
-#         "gpa": "4.0",
-#         "extra_curricular": "Men's Basketball",
-#         "num_programming_languages": "1",
-#         "num_past_internships": "2"
-#     }
+# {
+#     "student_id": "student1",
+#     "major": "Computer Science",
+#     "age": "20",
+#     "gender": "M",
+#     "gpa": "4.0",
+#     "extra_curricular": "Men's Basketball",
+#     "num_programming_languages": "1",
+#     "num_past_internships": "2"
+# }
+
+AGE_RANGE = [str(age) for age in range(18, 26)] # valid age range is [18, 25]
 
 class StudentInput(Schema):
     student_id = String(required=True)
     major = String(required=True) 
-    age = String(required=True)
+    age = String(required=True, validate=OneOf(AGE_RANGE))
     gender = String(required=True)
     gpa = String(required=True)
     extra_curricular = String(required=True)
