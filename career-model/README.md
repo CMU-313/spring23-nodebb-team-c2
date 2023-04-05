@@ -7,7 +7,7 @@
 2. Execute the following in terminal: 
 
 ```{bash}
-python3.10 -m venv career-model/venv                # make python virtual environment
+python3 -m venv career-model/venv                   # make python virtual environment
 source career-model/venv/bin/activate               # activate virtual environment 
 pip install -r career-model/requirements.txt        # install python dependencies
 ```
