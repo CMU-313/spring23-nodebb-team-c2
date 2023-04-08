@@ -5,25 +5,13 @@ from apiflask.validators import OneOf
 from predict import predict
 import argparse
 
-app = APIFlask(__name__, docs_ui='swagger-ui', docs_path='/docs')
+
+app = APIFlask(__name__)
 
 # testing endpoint
 @app.get('/') 
 def hello_world():
     return {'message': 'Hello world!'}
-
-
-
-# {
-#     "student_id": "student1",
-#     "major": "Computer Science",
-#     "age": "20",
-#     "gender": "M",
-#     "gpa": "4.0",
-#     "extra_curricular": "Men's Basketball",
-#     "num_programming_languages": "1",
-#     "num_past_internships": "2"
-# }
 
 AGE_RANGE = [str(age) for age in range(18, 26)] # valid age range is [18, 25]
 
@@ -60,6 +48,6 @@ if __name__ == '__main__':
 
     if is_production: 
         from waitress import serve 
-        serve(app, host="0.0.0.0", port=4000)
+        serve(app, host="0.0.0.0", port=4000, url_scheme='https')
     else: 
         app.run(host="0.0.0.0", port=4000)

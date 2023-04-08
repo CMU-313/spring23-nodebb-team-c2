@@ -50,5 +50,5 @@ def predict(student):
     student = student.dict(by_alias=True)
     query = pd.DataFrame(student, index=[0])
     prediction = clf.predict(query) # TODO: Error handling ??
-
+    
     return { 'good_employee': prediction[0] }
