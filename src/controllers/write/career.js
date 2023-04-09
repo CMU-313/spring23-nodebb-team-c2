@@ -54,7 +54,7 @@ Career.register = async (req, res) => {
             num_past_internships: userData.num_past_internships,
         };
 
-        userCareerData.prediction = await fetchPrediction(userData);;
+        userCareerData.prediction = await fetchPrediction(userData);
 
         await user.setCareerData(req.uid, userCareerData);
         db.sortedSetAdd('users:career', req.uid, req.uid);
