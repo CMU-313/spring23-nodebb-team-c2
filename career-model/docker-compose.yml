@@ -1,0 +1,9 @@
+version: '3.9'
+services: 
+  my-fastapi-service:
+    container_name: ml-career-feature
+    image: ml-career-feature:latest
+    cpus: 1
+    mem_limit: 1024m
+    ports:
+      - "8080:8080"
