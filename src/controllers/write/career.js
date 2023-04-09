@@ -1,6 +1,5 @@
 'use strict';
 
-const helpers = require('../helpers');
 const user = require('../../user');
 const db = require('../../database');
 
@@ -32,9 +31,7 @@ function fetchPrediction(userData) {
           })
         .then(data => {
             resolve(data.good_employee);
-            console.log(data);
             // Access the response parameters here
-            console.log(data.good_employee);
         })
         .catch(error => {
             reject(error);
@@ -63,7 +60,6 @@ Career.register = async (req, res) => {
         db.sortedSetAdd('users:career', req.uid, req.uid);
         res.json({});
     } catch (err) {
-        console.log(err);
-        helpers.noScriptErrors(req, res, err.message, 400);
+        res.status(502).send('Prediction service currently not available. Please refresh and try again');
     }
 };
