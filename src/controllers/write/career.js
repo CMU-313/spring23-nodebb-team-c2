@@ -29,15 +29,14 @@ function fetchPrediction(userData) {
                 }
                 return response.json();
             })
-        .then((data) => {
-            resolve(data.good_employee);
-            // Access the response parameters here
-        })
-        .catch((error) => {
-            reject(error);
-            console.error('Error:', error);
+            .then((data) => {
+                resolve(data.good_employee);
+            })
+            .catch((error) => {
+                reject(error);
+                console.error('Error:', error);
+            });
         });
-    });
 }
 
 Career.register = async (req, res) => {
