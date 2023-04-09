@@ -36,7 +36,7 @@ function fetchPrediction(userData) {
                 reject(error);
                 console.error('Error:', error);
             });
-        });
+    });
 }
 
 Career.register = async (req, res) => {
