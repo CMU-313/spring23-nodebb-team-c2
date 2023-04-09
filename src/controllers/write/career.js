@@ -10,7 +10,7 @@ function fetchPrediction(userData) {
         fetch('https://ml-career.fly.dev/prediction', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 student_id: userData.student_id,
@@ -20,20 +20,20 @@ function fetchPrediction(userData) {
                 gpa: userData.gpa,
                 extra_curricular: userData.extra_curricular,
                 num_programming_languages: userData.num_programming_languages,
-                num_past_internships: userData.num_past_internships
-            })
+                num_past_internships: userData.num_past_internships,
+            }),
         })
-        .then(response => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-          })
-        .then(data => {
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+        .then((data) => {
             resolve(data.good_employee);
             // Access the response parameters here
         })
-        .catch(error => {
+        .catch((error) => {
             reject(error);
             console.error('Error:', error);
         });
