@@ -22,7 +22,22 @@ Career.register = async (req, res) => {
 
         // TODO: Change this line to do call and retrieve actual candidate success
         // prediction from the model instead of using a random number
-        userCareerData.prediction = Math.round(Math.random());
+
+        fetch('https:/127.0.0.1:4000/prediction', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+          })
+        .then(response => response.json())
+        .then(data => {
+            userCareerData.prediction = data;
+            console.log(data)
+        })
+        .catch(error => console.error(error))
+
+       
 
         await user.setCareerData(req.uid, userCareerData);
         db.sortedSetAdd('users:career', req.uid, req.uid);
